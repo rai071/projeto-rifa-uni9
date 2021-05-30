@@ -1,5 +1,19 @@
 # Projeto Rifa UNINOVE 2021
 
+## Front-End the project
+
+The Front-End the project is in the rifa folder.
+
+## Backend the project 
+
+The project backend starts in PHP and is located in the backend folder. Change to be made for the back access to the bank is in the includes folder in the pdo.php file, in that file it is necessary to add the user and password. 
+
+## Script default to Create Tables
+
+Default script available to create tables in script-bd folder.
+
+## Information
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.2.
 
 ## Development server
@@ -26,10 +40,4 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-## Backend the project 
 
-The project backend starts in PHP and is located in the backend folder. Change to be made for the back access to the bank is in the includes folder in the pdo.php file, in that file it is necessary to add the user and password. 
-
-## Script default to Create Tables
-
-Default script available to create tables in script-bd folder.
