@@ -1,0 +1,21 @@
+.marginTop {
+    margin-top: 13px !important;
+  }
+  
+  table {
+    min-width: 100%;
+    max-width: 30%;
+  }
+  
+  .label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: -100px !important;
+    font: 400 14px/28px Roboto,"Helvetica Neue",sans-serif;
+    color: inherit !important;
+    font-size: 18px !important;
+  }
+
+  body {
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+  }

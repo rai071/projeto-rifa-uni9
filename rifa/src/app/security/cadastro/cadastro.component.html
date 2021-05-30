@@ -1,0 +1,110 @@
+<section class="content login-content" style="margin: 2% auto">
+  <div class="login-logo"><b>RIFA</b> | Cadastro</div>
+  <div class="col-xs-12 col-sm-offset-3 col-sm-6 login-box-body">
+    <p class="login-box-msg">Por favor, efetue seu cadastro</p>
+    <form [formGroup]="cadastroForm" novalidate>
+      <div class="row">
+        <div class="col-xs-12 col-sm-4">
+          <span
+            class="help-block pull-left has-error-block"
+            *ngIf="cadastroForm.hasError('emailsNotMatch')"
+            ><i class="fa fa-remove"></i> Email-s não conferem</span
+          >
+          <span
+            class="help-block pull-left has-error-block"
+            *ngIf="cadastroForm.hasError('passwordsNotMatch')"
+            ><i class="fa fa-remove"></i> Senhas não conferem</span
+          >
+        </div>
+
+        <div class="col-xs-12">
+          <app-input-container
+            errorMessage="Campo obrigatório e com 5 caracteres"
+            label="Nome"
+          >
+            <input
+              class="form-control"
+              formControlName="name"
+              placeholder="Nome"
+              autocomplete="off"
+            />
+          </app-input-container>
+        </div>
+      </div>
+      <div></div>
+      <div class="row">
+        <div class="col-xs-6">
+          <app-input-container errorMessage="E-mail inválido" label="E-mail">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="email"
+              placeholder="E-mail"
+              autocomplete="off"
+            />
+          </app-input-container>
+        </div>
+
+        <div class="col-xs-6">
+          <app-input-container errorMessage="E-mail inválido" label="E-mail">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="emailConfirmation"
+              placeholder="Confirmação do e-mail"
+              autocomplete="off"
+            />
+          </app-input-container>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <app-input-container errorMessage="Informe a senha" label="Senha">
+            <input
+              type="password"
+              formControlName="password"
+              class="form-control"
+              placeholder="Senha"
+              autocomplete="off"
+              required
+            />
+          </app-input-container>
+          <span
+            class="glyphicon glyphicon-lock form-control-feedback"
+            style="margin-right: 10px !important"
+          ></span>
+        </div>
+
+        <div class="col-xs-6">
+          <app-input-container errorMessage="Confirme a senha" label="Senha">
+            <input
+              type="password"
+              formControlName="passwordConfirmation"
+              class="form-control"
+              autocomplete="off"
+              placeholder="Confirme Senha"
+              required
+            />
+          </app-input-container>
+          <span
+            class="glyphicon glyphicon-lock form-control-feedback"
+            style="margin-right: 10px !important"
+          ></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-offset-8 col-xs-4">
+          <button
+            type="submit"
+            (click)="novoUsuario()"
+            [disabled]="!cadastroForm.valid"
+            class="btn btn-primary btn-block btn-flat"
+          >
+            Cadastrar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

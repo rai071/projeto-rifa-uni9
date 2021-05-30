@@ -1,0 +1,50 @@
+<header class="main-header">
+  <nav class="navbar navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a [routerLink]="['/']" class="navbar-brand"><b>RIFAN | UNI-9</b></a>
+        <button
+          type="button"
+          class="navbar-toggle collapsed"
+          data-toggle="collapse"
+          data-target="#navbar-collapse"
+        >
+          <i class="fa fa-bars"></i>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+        <ul class="nav navbar-nav">
+          
+          <li routerLinkActive="active" *ngIf="isLoggedIn()">
+            <a [routerLink]="['/rifan']">Rifan</a>
+          </li>
+          <li routerLinkActive="active" *ngIf="!isFriend()">
+            <a [routerLink]="['/rifan']">Rifan Friend</a>
+          </li>
+          <li routerLinkActive="active" *ngIf="isLoggedIn()">
+            <a [routerLink]="['/addrifa']">Adicionar Rifa</a>
+          </li>
+          <li routerLinkActive="active" *ngIf="isLoggedIn()">
+            <a [routerLink]="['/myrifa']">Minhas Rifas</a>
+          </li>
+          <li routerLinkActive="active" *ngIf="isLoggedIn()">
+            <a [routerLink]="['/raffler']">Sortear</a>
+          </li>
+          <li routerLinkActive="active" *ngIf="isWinner() || isLoggedIn()">
+            <a [routerLink]="['/winner']">Ganhadores</a>
+          </li>
+        <!-- 
+          <li routerLinkActive="active" *ngIf="isLoggedIn()">
+            <a [routerLink]="['/search']">Show Rifas</a>
+          </li>
+        -->  
+          <li routerLinkActive="active">
+            <a [routerLink]="['/about']">Sobre</a>
+          </li>
+        </ul>
+      </div>
+      <app-user-details></app-user-details>
+    </div>
+  </nav>
+</header>

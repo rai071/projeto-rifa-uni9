@@ -1,0 +1,61 @@
+<?php
+// required headers
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Max-Age: 3600");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+// load connection file
+require("../includes/pdo.php");
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+    $data = json_decode(file_get_contents("php://input"));
+    $headers = apache_request_headers();
+    if(isset($data->user_token)){
+        $user_token = strip_tags($data->user_token);
+    }else{
+        http_response_code(500);
+        echo json_encode(array("status" => "8", "info" => "user_token não recebido"));
+        die;
+    }
+    if(isset($data->rifa_name)){
+        $rifa_name = strip_tags($data->rifa_name);
+    }else{
+        http_response_code(500);
+        echo json_encode(array("status" => "8", "info" => "rifa_name não recebido"));
+        die;
+    }
+    $pdo_verifica = database();
+    $verifica = $pdo_verifica->prepare("SELECT id FROM tbl_users WHERE user_token = '{$user_token}'");
+    $verifica->execute();
+    if ($verifica->rowCount() == 1) {
+        $user = $verifica->fetchAll(PDO::FETCH_ASSOC);
+        $user = $user[0];
+    }else{
+        http_response_code(500);
+        echo json_encode(array("status" => "10", "info" => "Usuário não encontrado"));
+        die;
+    }
+    $rifa_token = sha1(date('YmdHis').$user_token.$rifa_name."uni9t43");
+	$pdo_insere = database();
+	$insere = $pdo_insere->prepare("INSERT INTO tbl_user_rifas (user_id, rifa_name, rifa_token) VALUES(:user_id, :rifa_name, :rifa_token)");
+	$insere->bindValue("user_id", $user["id"]);
+	$insere->bindValue("rifa_name", $rifa_name);
+	$insere->bindValue("rifa_token", $rifa_token);
+	$insere->execute();
+	if ($insere->rowCount() == 1) {
+		$res = $insere->fetchAll(PDO::FETCH_ASSOC);
+        http_response_code(200);
+        echo json_encode(
+            array(
+                "rifa_token" => "{$rifa_token}",
+            ));
+        die;
+	} else {
+        http_response_code(404);
+        die;
+	}
+}else{
+    http_response_code(500);
+    echo json_encode(array("status" => "12", "info" => "Método não suportado"));
+}
+?>

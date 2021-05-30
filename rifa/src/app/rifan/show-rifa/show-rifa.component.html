@@ -1,0 +1,37 @@
+<div class="box box-solid marginTop">
+  <div class="box-header">
+    <h3 class="box-title">Minhas Rifas</h3>
+    <br />
+
+      <mat-form-field>
+        <input
+        matInput
+        (keyup)="applyFilter($event.target.value)"
+        placeholder="Filtro"
+        />
+      </mat-form-field>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="rifa_name">
+            <th style="min-width: 50px !important; max-width: 100%;" mat-header-cell *matHeaderCellDef>
+              Nome
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.rifa_name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th style="min-width: 10px !important" mat-header-cell *matHeaderCellDef>
+            
+            </th>
+            <mat-cell *matCellDef="let row">
+                <button mat-button style="font-size: 14px;margin-top: 5px;" color="primary" (click)="viewGroup(row)">Link</button>
+            </mat-cell>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <br>
+        <mat-paginator style="float: left" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+     
+  </div>
+</div>

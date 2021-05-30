@@ -1,0 +1,105 @@
+<div class="box box-solid marginTop">
+  <div class="box-header">
+    <h3 class="box-title">Adicionar Rifa</h3>
+    <br />
+    <form [formGroup]="addRifaForm">
+      <div class="form-group has-feedback">
+        <app-input-container
+          errorMessage="Nome da Rifa inválido"
+          label="Nome da Rifa"
+        >
+          <input
+            style="width: 50%"
+            type="text"
+            class="form-control"
+            formControlName="nomeRifa"
+            minlength="5"
+            placeholder="Nome da Rifa"
+            autocomplete="off"
+          />
+        </app-input-container>
+      </div>
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox
+              (change)="$event ? masterToggle() : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+              [aria-label]="checkboxLabel()"
+            >
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox
+              (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)"
+              [aria-label]="checkboxLabel(row)"
+            >
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="group_name">
+          <th mat-header-cell *matHeaderCellDef>Grupo</th>
+          <td mat-cell *matCellDef="let element">{{ element.group_name }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="selection.toggle(row); viewGroup(row)"
+        ></tr>
+      </table>
+      <br />
+      <div class="row">
+        <div class="col-md-3 col-xs-6 pull-leght">
+          <button
+            type="button"
+            (click)="addrifa()"
+            [disabled]="
+              isValidateForme(addRifaForm.valid, selection.hasValue())
+            "
+            class="btn btn-primary btn-block btn-flat"
+          >
+            Adicionar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <br />
+  <div *ngIf="selection.hasValue()">
+    <h3 class="box-title" style="margin-left: 10px !important">
+      Seleção para <span style="color: red;"> {{ nameGroupSelected }} </span>
+    </h3>
+    <table mat-table [dataSource]="dataSourceGroup" class="mat-elevation-z8">
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nr.</th>
+        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+        <td mat-cell *matCellDef="let row">{{ row.nome }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsGroup"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsGroup"></tr>
+      
+    </table>
+    <br>
+    <mat-paginator
+      style="float: left"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+    ></mat-paginator>
+    <br /><br /><br />
+  </div>
+</div>

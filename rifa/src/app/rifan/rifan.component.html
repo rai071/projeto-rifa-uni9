@@ -1,0 +1,92 @@
+<div class="box box-solid marginTop">
+  <div class="box-header">
+      <mat-card style="text-align: center; font-weight: bold"
+        >SELECIONE SEUS NÚMEROS DA SORTE</mat-card
+      >
+    <div class="col-md-9 col-xs-12" style="margin-top: 10px">
+      <mat-form-field appearance="fill" *ngIf="usuario">
+        <mat-label>Selecione a Rifa</mat-label>
+        <mat-select [(ngModel)]="selectedValue" name="food" >
+          <mat-option *ngFor="let food of rifa" [value]="food.rifa_token" (click)="showRifaSelected()">
+            {{food.rifa_name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          (keyup)="applyFilter($event.target.value)"
+          placeholder="Filtro"
+        />
+      </mat-form-field>
+
+      <div class="rifa-container mat-elevation-z8">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z8 table-hover"
+        >
+
+          <ng-container matColumnDef="id_nome">
+            <th
+              style="min-width: 50px !important"
+              mat-header-cell
+              *matHeaderCellDef
+            >
+              No.
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.id_nome }}</td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="nome_numero">
+            <th
+              style="min-width: 100px !important"
+              mat-header-cell
+              *matHeaderCellDef
+            >
+              Categoria
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.nome_numero }}
+            </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="pago">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">
+              <span
+                *ngIf="element.pago === '0'"
+                style="color: green; font-weight: bold"
+                >Livre</span
+              >
+              <span
+                *ngIf="element.pago === '1'"
+                style="color: red; font-weight: bold"
+                >Reservado</span
+              >
+            </td>
+          </ng-container>
+
+          <tr
+            mat-header-row
+            *matHeaderRowDef="displayedColumns; sticky: true"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            (click)="row.pago === '0' && !usuario ? rifaCart.addItem(row) : ''"
+            (click)="isAllSelected1(row)"
+          ></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 col-xs-12">
+        <app-rifas-cart #rifaCart></app-rifas-cart>
+      </div>
+    </div>
+  </div>
+</div>
